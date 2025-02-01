@@ -1,4 +1,4 @@
-name: Windows 11 (8gb ram / 60gb ssd / 3core / VT-x support)
+name: Windows 11 (8gb ram / 500gb ssd / 3core / VT-x support)
 
 on: 
   workflow_dispatch:
@@ -21,19 +21,17 @@ jobs:
         run: |
           sudo chmod 666 /dev/kvm
           echo "Dang tai file windows 1-5 phut"
-          sudo wget -O a.qcow2 "https://qiwi.lol/orzp3975-a.qcow2" > /dev/null 2>&1
-          echo "Da xong, dang copy file"
-          sudo cp a.qcow2 /mnt
-          echo "Xong"
+          sudo wget -0 win.iso "https://software.download.prss.microsoft.com/dbazure/Win10_22H2_English_x64v1.iso?t=a69fbeca-6612-461e-beb9-6a5719df0aa4&P1=1738473193&P2=601&P3=2&P4=0o8YttfKS5VIwa6eqQ7SmVwmTePoyESbqiyO4YWMPWh%2bLObNsaMgL216%2fyQNxzjeScqJUa6sJmbldmc3Yn9WLDyeHysQPJSRGlQYCvmd%2bLLbi0sgG6KjFWpNkUSIWvS3KNNPYL1LU3CmOHY5h2d4Xvbl4ils4gME9OTJ5ChltHoBholz%2fNHVpDO%2fcHoL50KFH9DJoZkyR3hLunIQKRaiIIM%2bpYLkYbISIosn8jneAEox0BUXmHGhmXViBQYyh79Oq3MwBdWM8zAG3MdbJBb49f7Vl8dRewyWC7QbuLussVwb8hcFhkY%2fW%2bIQREpHnBXQt2BS09epJllyvsNn7dDbng%3d%3d"
+          sudo qemu-img create -f qcow2 /tmp/win.qcow2 500g > /dev/null 2>&1
+          sudo cp win.iso /mnt
           while ps axg | grep -vw grep | grep -w wget > /dev/null; do sleep 1; done
           echo "Tai driver virtio"
           wget -O driver.iso https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.240-1/virtio-win-0.1.240.iso &>/dev/null &
-          echo "Xong"
           while ps axg | grep -vw grep | grep -w wget > /dev/null; do sleep 1; done
           echo "thanh cong"
           echo "Day la ip vnc"
           curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p'
-          sudo cpulimit -l 50 -- sudo kvm -M q35,usb=on -device usb-tablet -cpu host -smp 2 -m 8G -device virtio-balloon-pci -vga qxl -net nic,netdev=n0 -netdev user,id=n0 -boot c -device virtio-serial-pci -device virtio-rng-pci -enable-kvm -drive file=/mnt/a.qcow2 -drive file=driver.iso,media=cdrom  -vnc :0 -uuid e47ddb84-fb4d-46f9-b531-14bb15156336
+          sudo cpulimit -l 50 -- sudo kvm -M q35,usb=on -device usb-tablet -cpu host -smp 2 -m 8G -device virtio-balloon-pci -vga qxl -net nic,netdev=n0 -netdev user,id=n0 -boot c -device virtio-serial-pci -device virtio-rng-pci -enable-kvm -drive file=/mnt/a.qcow2 -drive file=driver.iso,media=cdrom -drive file=win.iso,media=cdrom -vnc :0 -uuid e47ddb84-fb4d-46f9-b531-14bb15156336
           while ps axg | grep -vw grep | grep -w qemu-system-x86_64 > /dev/null; do sleep 1; done
           while ps axg | grep -vw grep | grep -w kvm > /dev/null; do sleep 1; done
           
