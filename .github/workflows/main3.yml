@@ -1,0 +1,39 @@
+name: Windows 11 (8gb ram / 60gb ssd / 3core / VT-x support)
+
+on: 
+  workflow_dispatch:
+      inputs:
+            ngrok:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: chuẩn bị phần mềm
+        run: |
+          sudo apt update -y
+          sudo apt install curl wget qemu-kvm cpulimit -y
+          wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+          tar -xf ngrok-v3-stable-linux-amd64.tgz
+          chmod +x ngrok
+          ./ngrok config add-authtoken "${{ github.event.inputs.ngrok }}"
+          nohup ./ngrok tcp --region ap 5900 &>/dev/null &
+      - name: Tải file Windows 11 Nexus lite và chạy
+        run: |
+          sudo chmod 666 /dev/kvm
+          echo "Dang tai file windows 1-5 phut"
+          sudo wget -O a.qcow2 "https://qiwi.lol/orzp3975-a.qcow2" > /dev/null 2>&1
+          echo "Da xong, dang copy file"
+          sudo cp a.qcow2 /mnt
+          echo "Xong"
+          while ps axg | grep -vw grep | grep -w wget > /dev/null; do sleep 1; done
+          echo "Tai driver virtio"
+          wget -O driver.iso https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.240-1/virtio-win-0.1.240.iso &>/dev/null &
+          echo "Xong"
+          while ps axg | grep -vw grep | grep -w wget > /dev/null; do sleep 1; done
+          echo "thanh cong"
+          echo "Day la ip vnc"
+          curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p'
+          sudo cpulimit -l 50 -- sudo kvm -M q35,usb=on -device usb-tablet -cpu host -smp 2 -m 8G -device virtio-balloon-pci -vga qxl -net nic,netdev=n0 -netdev user,id=n0 -boot c -device virtio-serial-pci -device virtio-rng-pci -enable-kvm -drive file=/mnt/a.qcow2 -drive file=driver.iso,media=cdrom  -vnc :0 -uuid e47ddb84-fb4d-46f9-b531-14bb15156336
+          while ps axg | grep -vw grep | grep -w qemu-system-x86_64 > /dev/null; do sleep 1; done
+          while ps axg | grep -vw grep | grep -w kvm > /dev/null; do sleep 1; done
+          
