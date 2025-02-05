@@ -1,0 +1,23 @@
+name: Tailscale - Docker
+
+on: 
+  workflow_dispatch:
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: chuẩn bị phần mềm
+        run: |
+          sudo apt update -y
+          sudo apt install wget curl -y
+          curl -fsSL https://tailscale.com/install.sh | sh
+          sudo tailscale up
+      - name: cài win và khởi chạy
+        run: |
+          sudo chmod 666 /dev/kvm
+          wget https://github.com/Ronak1137/Qemu-kvm/raw/refs/heads/main/compose.yaml
+          tailscale ip -4
+          echo "thanh cong, ket noi bang port 8006 o trinh duyet Chrome"
+          sudo docker compose up
+          
