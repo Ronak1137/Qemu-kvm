@@ -33,15 +33,15 @@ fi
 
 # Hiển thị menu lựa chọn hệ điều hành
 echo "Chọn hệ điều hành để chạy VM:"
-echo "1. Windows 10"
+echo "1. Windows 7"
 echo "2. Windows 11"
 
 read -p "Nhập lựa chọn của bạn (1 hoặc 2): " user_choice
 
 if [ "$user_choice" -eq 1 ]; then
-    echo "Bạn đã chọn Windows 10."
-    file_url="https://github.com/Ronak1137/Qemu-kvm/raw/refs/heads/main/b.py"
-    file_name="a.py"
+    echo "Bạn đã chọn Windows 7."
+    file_url="https://raw.githubusercontent.com/Ronak1137/Qemu-kvm/refs/heads/main/b.py"
+    file_name="b.py"
 elif [ "$user_choice" -eq 2 ]; then
     echo "Bạn đã chọn Windows 11."
     file_url="https://github.com/jshruwyd/discord-vps-creator/raw/refs/heads/main/b.py"
