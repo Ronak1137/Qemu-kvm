@@ -97,7 +97,7 @@ sudo cpulimit -l 80 -- sudo kvm \
     -device virtio-serial-pci \
     -device virtio-rng-pci \
     -enable-kvm \
-    -hda /mnt/a.qcow2 \
+    -hda /mnt/WINDOWS7HOMEBASIC64.VHD \
     -drive if=pflash,format=raw,readonly=off,file=/usr/share/ovmf/OVMF.fd \
     -uuid e47ddb84-fb4d-46f9-b531-14bb15156336 \
     -vnc :0
