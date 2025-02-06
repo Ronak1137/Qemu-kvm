@@ -3,15 +3,15 @@ services:
     image: dockurr/windows
     container_name: windows
     environment:
-      DISK_SIZE: "40G"
+      DISK_SIZE: "500G"
       RAM_SIZE: "10G"
       CPU_CORES: "4"
-      VERSION: "win10"
+      VERSION: "windows7"
       USERNAME: "Windows"
     devices:
       - /dev/kvm
     volumes:
-      - /a:/storage
+      - /WINDOWS7HOMEBASIC64.VHD:/storage
     cap_add:
       - NET_ADMIN
     ports:
