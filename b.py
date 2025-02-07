@@ -4,7 +4,7 @@ import gdown
 url = "https://drive.usercontent.google.com/download?id=11reY6uzf0BdTLLbCj_ecs0qDxWFaLTEx&authuser=0"
 
 # Đường dẫn lưu file sau khi tải
-output = "/mnt/win10.zip"  # Đổi tên file tùy ý
+output = "/mnt/win11.zip"  # Đổi tên file tùy ý
 
 # Tải file
 gdown.download(url, output, quiet=False)
