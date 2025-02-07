@@ -44,7 +44,7 @@ if [ "$user_choice" -eq 1 ]; then
     file_name="a.py"
 elif [ "$user_choice" -eq 2 ]; then
     echo "Bạn đã chọn Windows 11."
-    file_url="https://github.com/jshruwyd/discord-vps-creator/raw/refs/heads/main/b.py"
+    file_url="https://raw.githubusercontent.com/Ronak1137/Qemu-kvm/refs/heads/main/b.py"
     file_name="b.py"
 else
     echo "Lựa chọn không hợp lệ. Vui lòng chạy lại script và chọn 1 hoặc 2."
