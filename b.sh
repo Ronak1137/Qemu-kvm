@@ -44,7 +44,7 @@ if [ "$user_choice" -eq 1 ]; then
     file_name="b.py"
 elif [ "$user_choice" -eq 2 ]; then
     echo "Bạn đã chọn Windows 11."
-    file_url="https://github.com/jshruwyd/discord-vps-creator/raw/refs/heads/main/b.py"
+    file_url="https://raw.githubusercontent.com/Ronak1137/Qemu-kvm/refs/heads/main/b.py"
     file_name="b.py"
 else
     echo "Lựa chọn không hợp lệ. Vui lòng chạy lại script và chọn 1 hoặc 2."
@@ -97,7 +97,7 @@ sudo cpulimit -l 80 -- sudo kvm \
     -device virtio-serial-pci \
     -device virtio-rng-pci \
     -enable-kvm \
-    -hda /mnt/WINDOWS7HOMEBASIC64.VHD \
+    -hda /mnt/a.qcow2 \
     -drive if=pflash,format=raw,readonly=off,file=/usr/share/ovmf/OVMF.fd \
     -uuid e47ddb84-fb4d-46f9-b531-14bb15156336 \
     -vnc :0
